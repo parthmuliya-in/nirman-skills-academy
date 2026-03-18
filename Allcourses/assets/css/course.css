@@ -1,0 +1,626 @@
+main {
+    /* top: 150px; */
+    padding-top: 100px;
+}
+
+/* ---------- MAIN SECTION ---------- */
+.course-section {
+    width: 100%;
+    /* padding: 40px 20px; */
+    padding: 40px 20px 120px;
+    /* extra bottom so glass box bahar dikhe */
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+/* ---------- VIDEO CONTAINER ---------- */
+.video-container {
+    position: relative;
+    width: 100%;
+    max-width: 1100px;
+    height: 60vh;
+    /* overflow: hidden; */
+    overflow: visible;
+    /* IMPORTANT – glass box ko bahar dikhne deta hai */
+    border-radius: 20px;
+}
+
+/* Visible Background Video */
+.bg-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(78%);
+    cursor: pointer;
+    border-radius: 15px;
+}
+
+/* Show video frame only */
+#mainVideo {
+    pointer-events: auto;
+}
+
+/* ---------- GLASS BOX ---------- */
+.glass-box {
+    position: absolute;
+    /* bottom: 20px; */
+    bottom: -25%;
+    /* 80% box niche, 20% overlap visible */
+    left: 50%;
+    transform: translateX(-50%);
+
+    /* width: 90%;*/
+    width: 85%;
+    height: 300px;
+    /* height: 20%; */
+    /* padding: 20px; */
+    padding: 25px;
+
+    backdrop-filter: blur(12px);
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+
+    border-radius: 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+
+    color: var(--text-color, #fff);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+}
+
+
+/* when dark mode ON */
+body.dark-mode .glass-box {
+    background: rgba(255, 255, 255, 0) !important;
+    color: #fff !important;
+    border-color: rgba(255, 255, 255, 0) !important;
+}
+
+/* when light mode ON */
+body:not(.dark-mode) .glass-box {
+    background: rgba(255, 255, 255, 0.35) !important;
+    color: #000 !important;
+    border-color: rgba(0, 0, 0, 0.2) !important;
+}
+
+
+/* Buttons */
+.btn-group {
+    margin-top: 12px;
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+}
+
+.btn {
+    padding: 10px 22px;
+    border-radius: 30px;
+    border: 1px solid #fff;
+    background: rgba(255, 255, 255, 0.22);
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+
+body.dark-mode .btn {
+    background: rgba(255, 255, 255, 0.12) !important;
+    color: #fff !important;
+    border-color: rgba(255, 255, 255, 0.25) !important;
+}
+
+/* when light mode ON */
+body:not(.dark-mode) .btn {
+    background: rgba(255, 255, 255, 0.35) !important;
+    color: #000 !important;
+    border-color: rgba(0, 0, 0, 0.2) !important;
+}
+
+/* .btn:hover {
+    background: #fff;
+    color: #000;
+} */
+
+/* ---------- POPUP VIDEO ---------- */
+.popup {
+    position: fixed;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+
+/* DARK MODE → Popup dark but slightly transparent */
+body.dark-mode .popup {
+    background: rgba(0, 0, 0, 0.85) !important;
+}
+
+/* LIGHT MODE → Popup light vibe */
+body:not(.dark-mode) .popup {
+    background: rgba(255, 255, 255, 0.85) !important;
+}
+
+body:not(.dark-mode) .close-btn {
+    color: #000 !important;
+}
+
+body.dark-mode .close-btn {
+    color: #fff !important;
+}
+
+
+
+.popup-content {
+    position: relative;
+    width: 80%;
+    max-width: 900px;
+}
+
+.popup-content video {
+    width: 100%;
+    border-radius: 12px;
+    max-height: 60vh;
+    /* 👈 yaha se height set hogi */
+    object-fit: contain;
+}
+
+/* Close button */
+.close-btn {
+    position: absolute;
+    top: -35px;
+    right: 0;
+    font-size: 40px;
+    cursor: pointer;
+    color: #fff;
+}
+
+/* ---------- THEME COMPATIBILITY ---------- */
+/* body.light .glass-box {
+     background: rgba(255, 255, 255, 0.35);
+    color: #000;
+    border-color: rgba(0,0,0,0.2);
+}
+
+body.dark .glass-box {
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
+    border-color: rgba(255,255,255,0.25);
+} */
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 1200px) {
+    .video-container {
+        height: 30vh;
+    }
+}
+
+@media (max-width: 768px) {
+    .glass-box {
+        height: auto;
+        /* padding: 15px; */
+        width: 92%;
+        bottom: -28%;
+        /* mobile me thoda aur niche */
+        padding: 18px;
+    }
+
+    .btn {
+        padding: 8px 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    .glass-box {
+        bottom: -32%;
+    }
+}
+
+
+
+/* <!-- **************************** section 2 *************************** --> */
+/* WRAPPER SECTION */
+.course-info-section {
+    padding: 80px 20px;
+    width: 100%;
+    max-width: 1100px;
+    margin: auto;
+}
+
+/* MINI HEADER MENU */
+.course-mini-header {
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(10px);
+    padding: 12px 20px;
+    border-radius: 16px;
+    position: relative;
+    transition: 0.3s ease-in-out;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ON SCROLL → STICKY */
+.course-mini-header.sticky {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    border-radius: 0;
+    z-index: 999;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    animation: miniSlide 0.45s ease forwards;
+}
+
+@keyframes miniSlide {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* DARK MODE */
+body.dark-mode .course-mini-header {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+body.dark-mode .course-mini-header.sticky {
+    background: rgba(0, 0, 0, 0.7);
+}
+
+/* MENU ITEMS */
+.course-mini-menu {
+    display: flex;
+    justify-content: space-around;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.course-mini-menu li {
+    cursor: pointer;
+    font-weight: 600;
+    padding: 8px 14px;
+    border-radius: 10px;
+    transition: 0.3s ease;
+}
+
+.course-mini-menu li.active {
+    background: #ff6600;
+    color: white;
+}
+
+/* DARK ACTIVE COLOR */
+body.dark-mode .course-mini-menu li.active {
+    background: #ff6600;
+}
+
+/* CONTENT BOX */
+.course-content-box {
+    margin-top: 40px;
+}
+
+.course-content {
+    margin-bottom: 60px;
+    opacity: 1;
+    visibility: visible;
+    height: auto;
+    overflow: visible;
+}
+
+
+.detail-para {
+    margin-bottom: 20px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .course-mini-menu {
+        gap: 10px;
+        overflow-x: auto;
+    }
+
+    .course-mini-menu li {
+        white-space: nowrap;
+    }
+}
+
+
+
+/* OUTER BOX */
+.course-detail-box {
+    border: 2px solid #dcdcdc;
+    padding: 25px;
+    border-radius: 20px;
+    margin-top: 30px;
+    animation: fadeIn 0.6s ease;
+}
+
+/* HEADING */
+.detail-title {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+/* FLEX/ GRID */
+.detail-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px 25px;
+    /* display: flex;
+    flex-direction: column;
+    gap: 20px; */
+}
+
+/* CARD */
+.detail-card {
+    display: flex;
+    gap: 15px;
+    padding: 18px 20px;
+    border-radius: 18px;
+    border: 2px solid #e2e2e2;
+    transition: 0.3s ease;
+    cursor: pointer;
+    background: #fff;
+    animation: slideUp 0.5s ease;
+}
+
+.detail-card:hover {
+    transform: translateY(-4px);
+    border-color: #0066ff;
+}
+
+/* ICON BOX */
+.detail-icon {
+    min-width: 45px;
+    height: 45px;
+    border-radius: 12px;
+    background: #f0f4ff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    color: #0055ff;
+}
+
+/* TEXT */
+.detail-info h4 {
+    font-size: 17px;
+    font-weight: 600;
+}
+
+/*.detail-info p {
+    font-size: 14px;
+    opacity: 0.8;
+}*/
+
+
+/* DARK MODE */
+body.dark-mode .course-detail-box {
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+body.dark-mode .detail-card {
+    background: rgba(255, 255, 255, 0.07);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+body.dark-mode .detail-icon {
+    background: rgba(255, 255, 255, 0.1);
+    color: #66aaff;
+}
+
+/* ANIMATIONS */
+@keyframes slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* MOBILE: HIDE MINI MENU + REMOVE ANIMATION + NORMAL LAYOUT */
+@media (max-width: 768px) {
+
+    /* MINI MENU completely hidden */
+    .course-mini-header {
+        display: none !important;
+    }
+
+    /* STOP sticky behavior just in case */
+    .course-mini-header.sticky {
+        position: static !important;
+        animation: none !important;
+        transform: none !important;
+        opacity: 1 !important;
+    }
+
+    /* GRID → 1 CARD PER ROW */
+    .detail-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* REMOVE slide animation on cards */
+    .detail-card {
+        animation: none !important;
+        transform: none !important;
+    }
+}
+
+
+
+/* ******************************************************************************************************************* */
+/* Course Flush Accordion**************** */
+
+.accordion-flush .accordion-item {
+    border: 0;
+    border-bottom: 1px solid #ddd;
+    position: relative;
+    /* padding: 0px 50px; */
+    width: 1050px;
+    margin: auto;
+}
+
+.accordion-button {
+    width: 100%;
+    padding: 1rem;
+    background: none;
+    border: none;
+    text-align: left;
+    font-size: 1.1rem;
+    cursor: pointer;
+    outline: none;
+    transition: background 0.2s ease;
+    position: relative;
+    padding: 20px;
+}
+
+.dark-mode .accordion-button {
+    color: #ffff;
+}
+
+/* HOVER DETAIL TEXT */
+.hover-detail {
+    position: absolute;
+    right: 75px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.9.8rem;
+    /* color: #888888; */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.accordion-body p {
+    font-size: 19px;
+}
+
+.accordion-button:hover .hover-detail {
+    opacity: 1;
+}
+
+.accordion-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    padding: 0 1rem;
+}
+
+.accordion-item.activee .accordion-body {
+    max-height: 600px;
+    padding: 1rem;
+}
+
+.accordion-button::after {
+    content: "\25BC";
+    float: right;
+    transition: transform 0.3s;
+}
+
+.accordion-item.activee .accordion-button::after {
+    transform: rotate(180deg);
+}
+
+.link-section a {
+    color: #ff6600;
+    text-decoration: none;
+    display: flex;
+    justify-content: space-between;
+    max-width: 700px;
+    border: 1px solid orange;
+    border-radius: 20px;
+    padding: 10px 20px;
+    margin-right: 30px;
+    display: inline;
+}
+
+.link-section i {
+    color: orange;
+
+}
+
+/* .link-section a {
+    flex-direction: 40%;
+    text-decoration: none;
+} */
+
+.link-section a i {
+    margin-left: 20px;
+    font-size: 15px;
+}
+
+/* ========== RESPONSIVE START ========== */
+
+/* Tablet */
+@media (max-width: 1100px) {
+    .hover-detail {
+        right: 20px;
+        font-size: .8rem;
+    }
+
+}
+
+/* Mobile */
+@media (max-width: 1150px) {
+    .accordion-flush .accordion-item {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .accordion-button {
+        padding: 15px;
+        font-size: 1rem;
+    }
+
+    .hover-detail {
+        display: none;
+        /* Mobile pe hover text hide */
+    }
+
+    .link-section a {
+        max-width: 100%;
+        padding: 10px 15px;
+        font-size: 15px;
+        display: flex;
+        justify-content: space-between;
+        margin: 20px 0px;
+    }
+
+}
+
+/* Small Mobile */
+@media (max-width: 1100px) {
+    .accordion-button {
+        font-size: .9rem;
+    }
+
+    .link-section a {
+        font-size: 14px;
+        padding: 18px 12px;
+    }
+}
+
+/* ========== RESPONSIVE END ========== */
+
+
+
+/* Course Flush Accordion end**************** */

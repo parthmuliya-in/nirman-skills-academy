@@ -1,0 +1,229 @@
+/* course**************** */
+.btns-filter {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding: 140px 30px 0px;
+}
+
+/* .btn-box {
+    flex: 1;
+    min-width: 140px;
+    padding: 18px;
+    background: #E58C331A;
+    text-align: center;
+    border-radius: 10px;
+    text-decoration: none;
+    cursor: pointer;
+} */
+
+
+/* .btn-box.active {
+    background: #ff6600 !important;  
+    color: #fff;
+} */
+.btn-box {
+    flex: 1;
+    min-width: 140px;
+    padding: 18px;
+    background: #E58C331A; /* default background */
+    text-align: center;
+    border-radius: 10px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: 0.3s ease;
+    color: #222; /* default text color */
+}
+
+.btn-box.active {
+    background: #ff6600  !important; /* active background */
+    color: #fff; /* active text color */
+}
+
+
+
+.course-section {
+    display: none;
+    width: 95%;
+    margin: auto;
+    padding-top: 40px;
+    font-family: Arial, sans-serif;
+}
+
+.show {
+    display: block;
+}
+
+.cards-row {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.cards-row.two {
+    justify-content: center;
+}
+
+.card {
+    border-radius: 10px;
+    object-fit: cover;
+    overflow: hidden;
+    border-radius: 12px;
+    width: 32%;
+    box-shadow: 0px 35px 40px rgba(0, 0, 0, 0.15);
+
+}
+
+/* Two-card layout */
+.cards-row.two .card {
+    width: 30%;
+    
+}
+
+.card img {
+    width: 100%;
+    
+}
+
+.course-text {
+    padding: 10px;
+    
+}
+
+.course-text h5{
+   height: 34px;
+    /* font-size: 17.99px; */
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+    
+}
+
+/*.course-text .card-p-text{
+    height: 100px;
+    padding: 50px;
+}*/
+
+.course-text p{
+    height: 100%;
+    letter-spacing: .2px;
+    word-spacing: 1px; 
+    /* line-height: 25px;  */
+    /* margin-bottom: 20px; */
+}
+
+.course-text a {
+    text-decoration: none;
+    /*margin-left: 250px;*/
+    width: 97%;
+    text-align: center  ;
+    /* background: linear-gradient(45deg, #ff6600, #ff4d00); */
+}
+
+.course-text a:hover {
+   background: #e05700;
+}
+
+.getBtn {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 8px 16px;
+    background: #ff6600;
+    color:#fff;
+    border-radius: 6px;
+    text-decoration: none;
+}
+
+/* -----------------------------------
+   🔥 RESPONSIVE PART  
+----------------------------------- */
+
+/* Tablet (max 900px) */
+@media (max-width: 900px) {
+    .card {
+        width: 48%;
+    }
+
+    .cards-row.two .card {
+        width: 60%;
+    }
+
+    .btns-fliter {
+        padding: 20px;
+    }
+}
+
+/* Mobile Large (max 600px) */
+@media (max-width: 600px) {
+    .btn-box {
+        flex: 1 1 45%;
+    }
+
+    .card {
+        width: 100%;
+    }
+
+    .cards-row.two .card {
+        width: 100%;
+    }
+}
+
+/* Small Mobile (max 420px) */
+@media (max-width: 420px) {
+    .btn-box {
+        flex: 1 1 100%;
+    }
+}
+
+/* LIGHT MODE CARDS */
+body:not(.dark-mode) .card {
+    background: rgba(255, 255, 255, 0.35);
+    /* Light glass transparent */
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.4); 
+    --slide-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+
+}
+
+/* DARK MODE CARDS */
+.dark-mode .card {
+    background: rgba(0, 0, 0, 0.32);
+    /* Dark glass transparent */
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    --slide-shadow: 0 0 10px rgba(239, 238, 238, 0.865);
+}
+
+/* LIGHT MODE BUTTONS (Improved & Visible) */
+body:not(.dark-mode) .btn-box {
+    background: rgba(255, 255, 255, 0.55);
+    /* increased visibility */
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: #222;
+    transition: 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.10);
+}
+
+/* DARK MODE BUTTONS */
+.dark-mode .btn-box {
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: #fff;
+    transition: 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.40);
+}
+
+/* HOVER EFFECT (Same Both) */
+.btn-box:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.18);
+}
+
+/* course filter end */

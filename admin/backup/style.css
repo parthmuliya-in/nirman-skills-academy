@@ -1,0 +1,415 @@
+
+    /* =====================================================
+   ROOT VARIABLES
+===================================================== */
+:root {
+  --hero-bg: #fff;
+  --hero-text: #000;
+  --hero-light-text: #444;
+  --hero-list-text: #2c2c2c;
+  --hero-box-bg: #f5f5f5;
+
+  --dropdown-bg: #fff;
+  --dropdown-text: #ff6600;
+
+  --navmenu-bg: #fff;
+  --slide-shadow: 0 0 20px rgba(0,0,0,.6);
+  --super-shadow: 0 0 10px rgba(0,0,0,.8);
+}
+
+.dark-mode {
+  --hero-bg: #111;
+  --hero-text: #fff;
+  --hero-light-text: #ddd;
+  --hero-list-text: #ddd;
+  --hero-box-bg: #222;
+
+  --dropdown-bg: #222;
+  --dropdown-text: #ff6600;
+
+  --navmenu-bg: #222;
+  --slide-shadow: 0 0 10px rgba(255,255,255,.6);
+  --super-shadow: 0 0 10px rgba(255,255,255,.8);
+}
+
+/* =====================================================
+   RESET & BODY
+===================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: var(--hero-bg);
+  color: var(--hero-text);
+  transition: .3s;
+}
+
+/* =====================================================
+   HEADER
+===================================================== */
+.header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 90px;
+  padding: 15px 40px;
+  background: var(--hero-bg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #ddd;
+  z-index: 1000;
+}
+
+.dark-mode .header {
+  background: #222;
+  border-color: #444;
+}
+
+.logo img {
+  width: 140px;
+}
+
+/* =====================================================
+   NAVBAR
+===================================================== */
+.navbar {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav-menu {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+}
+
+.nav-menu a,
+.sign-up-btn {
+  text-decoration: none;
+  color: #ff6600;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+/* =====================================================
+   GET IN TOUCH BUTTON
+===================================================== */
+.get-touch-btn {
+  position: relative;
+  padding: 10px 22px;
+  border-radius: 10px;
+  border: none;
+  background: rgba(141,103,65,.1);
+  color: #ff6600;
+  font-size: 20px;
+  font-weight: 700;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+/* animated borders */
+.get-touch-btn::before,
+.get-touch-btn::after,
+.get-touch-btn span {
+  content: "";
+  position: absolute;
+}
+
+.get-touch-btn::before {
+  top: 0; left: -100%;
+  width: 100%; height: 3px;
+  background: linear-gradient(to right, transparent,#ff6600,#ffb677,#ff6600,transparent);
+  animation: moveTop 2s linear infinite;
+}
+
+.get-touch-btn::after {
+  right: 0; top: -100%;
+  width: 3px; height: 100%;
+  background: linear-gradient(to bottom, transparent,#ff6600,#ffb677,#ff6600,transparent);
+  animation: moveRight 2s linear infinite;
+}
+
+@keyframes moveTop {
+  0%{left:-100%}50%{left:100%}100%{left:100%}
+}
+@keyframes moveRight {
+  0%{top:-100%}50%{top:100%}100%{top:100%}
+}
+
+/* =====================================================
+   SEARCH BAR
+===================================================== */
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  background: rgba(255,102,0,.1);
+  border: 1px solid #ffb677;
+}
+
+.search-box input {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 16px;
+  width: 200px;
+}
+
+.search-btn {
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: #ff6600;
+  cursor: pointer;
+}
+
+.search-icon-mobile {
+  display: none;
+  font-size: 22px;
+  background: none;
+  border: none;
+  color: #ff6600;
+}
+
+/* =====================================================
+   HAMBURGER
+===================================================== */
+.hamburger {
+  width: 32px;
+  height: 26px;
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.hamburger span {
+  height: 3px;
+  background: #222;
+  border-radius: 3px;
+  transition: .3s;
+}
+
+.dark-mode .hamburger span {
+  background: #fff;
+}
+
+/* =====================================================
+   DROPDOWN
+===================================================== */
+.dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 25px;
+  left: 0;
+  width: 180px;
+  list-style: none;
+  background: var(--dropdown-bg);
+  border-radius: 8px;
+  padding: 10px 0;
+  box-shadow: 0 5px 15px rgba(0,0,0,.15);
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+  transition: .25s;
+}
+
+.dropdown-menu a {
+  display: block;
+  padding: 10px 20px;
+  color: var(--dropdown-text);
+}
+
+@media (min-width: 851px) {
+  .dropdown:hover .dropdown-menu {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+}
+
+/* =====================================================
+   MOBILE NAV
+===================================================== */
+@media (max-width: 1200px) {
+  .hamburger { display: flex; }
+
+  .nav-menu {
+    position: absolute;
+    top: 90px;
+    right: 0;
+    width: 100%;
+    background: var(--navmenu-bg);
+    flex-direction: column;
+    text-align: center;
+    max-height: 0;
+    overflow: hidden;
+    transition: .4s;
+  }
+
+  .nav-menu.active {
+    max-height: 500px;
+    padding: 20px 0;
+  }
+}
+
+@media (max-width: 850px) {
+  .search-box { display: none; }
+  .search-icon-mobile { display: block; }
+
+  .search-box.active {
+    display: flex;
+    position: absolute;
+    top: 90px;
+    left: 10%;
+    right: 10%;
+    background: #fff;
+  }
+}
+
+/* =====================================================
+   TABLE
+===================================================== */
+.table-perspective {
+  perspective: 1200px;
+}
+
+.modern-table-wrap {
+  width: 90%;
+  max-width: 1100px;
+  margin: 140px auto 0;
+  padding: 25px 40px;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 20px 50px rgba(0,0,0,.08);
+  text-align: center;
+  transform-style: preserve-3d;
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.table-header h2 {
+  color: #ff6600;
+}
+
+#searchInput {
+  padding: 10px 18px;
+  border-radius: 30px;
+  border: 1.5px solid #ddd;
+}
+
+/* Search focus restore */
+.search-box input:focus,
+#searchInput:focus {
+    outline: none;
+    border: 1.5px solid #ff6600;
+    box-shadow: 0 0 10px rgba(255, 102, 0, 0.35);
+}
+.delete-btn {
+    padding: 6px 16px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    background: #fee2e2;
+    color: #dc2626;
+    font-size: 13px;
+    transition: transform .2s ease, opacity .2s ease, box-shadow .2s ease;
+}
+
+.delete-btn:hover {
+    transform: scale(1.05);
+    opacity: .9;
+   
+}
+.toggle-btn {
+    padding: 5px 14px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 13px;
+    background: #e0f2fe;
+    color: #0369a1;
+    transition: background .3s ease, transform .2s ease, box-shadow .2s ease;
+}
+
+.toggle-btn:hover {
+    background: #bae6fd;
+    transform: scale(1.05);
+   
+}
+
+.modern-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.modern-table th {
+  background: linear-gradient(135deg,#ff7a00,#ff4d00);
+  color: #fff;
+  padding: 15px;
+}
+
+.modern-table td {
+  padding: 14px;
+  border-bottom: 1px solid #eee;
+}
+
+
+/* =====================================================
+   MOBILE TABLE
+===================================================== */
+@media (max-width: 768px) {
+  .modern-table,
+  .modern-table tbody,
+  .modern-table tr,
+  .modern-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .modern-table thead {
+    display: none;
+  }
+
+  .modern-table tr {
+    margin-bottom: 12px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0,0,0,.06);
+  }
+
+  .modern-table td {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+  }
+
+  .modern-table td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #ff6600;
+  }
+
+  .table-perspective {
+    perspective: none;
+  }
+}

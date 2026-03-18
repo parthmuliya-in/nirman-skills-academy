@@ -1,0 +1,363 @@
+.contact-banner {
+    height: 350px;
+    width: 100%;
+    position: relative;
+    padding-left: 80px;
+    background-image: url("../images/contact-usbanner.jpg");
+    background-size: cover;        /* ⭐ MAIN FIX */
+    background-repeat: no-repeat;
+    background-position: center;   /* recommended */
+}
+
+
+.contact-banner h2 {
+    /* color: white; */
+    font-size: 40px;
+}
+
+.contact-banner p {
+    /* color: white; */
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+/*
+OVERLAP BOX */
+.contact-box {
+    width: 90%;
+    max-width: 1400px;
+    margin: auto;
+    /* background: rgba(255,255,255,0.4); */
+    padding: 35px;
+    border-radius: 12px;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+    margin-top:
+        -80px;
+    position: relative;
+    z-index: 10;
+}
+
+/* TWO COLUMNS */
+.top-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+/* LEFT & RIGHT BOX */
+.left-col,
+.right-col {
+    background: rgba(255, 255, 255, 0.08);
+    padding: 35px;
+    border-radius: 12px;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.25);
+}
+
+/* FORM */
+.row2 input {
+    width: 95%;
+    height: 30px;
+    /* <-- HEIGHT FIXED 50PX */
+    padding: 10 15px;
+    /* left-right padding */
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.row2 input,
+textarea {
+    width: 90%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 12px;
+    margin-bottom: 20px;
+}
+
+textarea {
+    height: 120px;
+    resize: none;
+}
+
+.row2 {
+    display: flex;
+    gap: 15px;
+}
+
+.row2>div {
+    width: 100%;
+}
+
+/* PHONE ERROR */
+.error-small {
+    color: red;
+    font-size: 12px;
+    margin-bottom: 10px;
+    display: none;
+}
+
+/* ROBOT ERROR ABOVE CHECKBOX */
+.expired-msg {
+    color: red;
+    font-size: 13px;
+    margin-bottom: 5px;
+    display: none;
+}
+
+/* RECAPTCHA BOX */
+.recaptcha-compact {
+    width: 100%;
+    max-width: 300px;
+    /* background: #ffffff; */
+    border: 1px solid #d3d3d3;
+    border-radius: 4px;
+    padding: 12px;
+    display:
+        flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+    margin-top: 10px;
+}
+
+.check-container {
+    position: relative;
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
+}
+
+.check-container input {
+    opacity: 0;
+    width: 22px;
+    height: 22px;
+    position: absolute;
+    cursor: pointer;
+}
+
+.checkmark {
+    width: 22px;
+    height: 22px;
+    /* background: white;
+    */
+    border: 2px solid #bfbfbf;
+    border-radius: 3px;
+    display: block;
+}
+
+.check-container input:checked~.checkmark {
+    /*
+    background: #1a73e8; */
+    border-color: #1a73e8;
+}
+
+.robot-text {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.robot-icon {
+    width: 32px;
+    margin-left: auto;
+}
+
+/* SHAKE */
+.shake {
+    animation: shakeAnim 0.3s;
+}
+
+@keyframes shakeAnim {
+    25% {
+        transform: translateX(-4px);
+    }
+
+    50% {
+        transform: translateX(4px);
+    }
+
+    75% {
+        transform: translateX(-4px);
+    }
+}
+
+/* SUBMIT
+    BUTTON */
+.submit-btn {
+    background-color: #ff6600;
+    color: white;
+    padding: 12px;
+    width: 120px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.submit-btn:hover {
+    transform: scale(1.05);
+}
+
+/* FOOTER TEXT */
+.recap-footer {
+    font-size: 12px;
+    color: #666;
+    margin-top: 5px;
+}
+
+.social-icons i{
+    color: #ff6600;
+    font-size: 30px;
+}
+
+/*
+    RESPONSIVE MOBILE */
+@media (max-width: 1100px) {
+    .contact-banner {
+        padding-left: 20px;
+        padding-top: 100px;
+        height:
+            280px;
+    }
+
+    .contact-banner h2 {
+        font-size: 28px;
+    }
+
+    .contact-box {
+        width: 95%;
+        padding: 20px;
+    }
+
+    .top-cols {
+        grid-template-columns: 1fr;
+    }
+
+    .left-col,
+    .right-col {
+        padding: 20px;
+    }
+
+    .row2 {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .recaptcha-compact {
+        max-width: 100%;
+        justify-content: flex-start;
+    }
+
+    .submit-btn {
+        width: 100%;
+    }
+
+    .contact-banner {
+        margin-top: 120px;
+    }
+}
+
+@media(min-width: 701px) and (max-width: 1100px) {
+
+    .row2 input,
+    textarea {
+        width: 100%;
+        padding: 20px;
+    }
+}
+
+.custom-check input {
+    display: none;
+    /* real checkbox hidden */
+}
+
+.checkmark {
+    width: 22px;
+    height: 22px;
+    border: 2px solid #bfbfbf;
+    border-radius: 3px;
+    display: block;
+    position: relative;
+    /* required */
+}
+
+#robotCheck:checked+.checkmark::after {
+    content: "✔";
+    position: absolute;
+    font-size: 20px;
+    color: #4a90e2;
+    left:
+        2px;
+    top: -3px;
+}
+
+.contact-row {
+    /* display: flex; */
+    gap: 40px;
+    /* align-items: flex-start; */
+    width: 100%;
+}
+
+/* .contact-row .item-form { */
+    /* font-size: 18px; */
+    /* font-weight: 600; */
+/* } */
+.item-form { 
+    font-size: 18px;
+     font-weight: 600; 
+} 
+
+.contact-row .sub {
+    font-size: 14px;
+    /* color: #555;
+    */
+    margin-left: 24px;
+    /* text ko icon/text ke niche align karne ke liye */
+    margin-top: 3px;
+    width: 100%;
+}
+
+.right-col p {
+    font-size: 16px;
+}
+
+.contact-row i {
+    margin-right: 6px;
+    color: #ff6600;
+}
+
+a {
+    text-decoration: none;
+    font-size: 24px;
+}
+
+@media (max-width: 600px) {
+    .contact-row {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .contact-row .item-form {
+        font-size: 16px;
+    }
+
+    .contact-row .sub {
+        margin-left: 28px;
+        font-size: 13px;
+    }
+}
+
+.form-map iframe {
+    width:
+        100%;
+}
+
+.social-icons a:hover {
+    color: #ff4500;
+    /* icon stays white */
+}

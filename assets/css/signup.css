@@ -1,0 +1,272 @@
+/* ⭐ Sign up page */
+main{
+    padding-top: 130px;
+}
+.signup-container {
+    width: 900px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 35px;
+    background: #fff;
+    border-radius: 18px;
+    padding: 30px 35px;
+    border: 2px solid transparent;
+    transition: 0.6s ease;
+    margin: 0px auto;
+    position: relative;
+    box-shadow: 0 0 20px rgba(238, 238, 238, 0.4);
+    transition: 0.3s ease;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    border: 3px solid transparent;
+
+
+}
+
+/* subtle floating */
+@keyframes floatEffect {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-6px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.reset-effect {
+    transition: 0.3s ease;
+    transform: rotateX(0deg) rotateY(0deg) !important;
+}
+
+/* LEFT SIDE ANIMATION */
+.left-side {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    opacity: 0;
+    transform: translateX(-25px);
+    animation: slideLeft 0.8s ease forwards;
+}
+
+@keyframes slideLeft {
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.left-side .left-logo img {
+    width: 150px;
+    /* 🔥 jitna chhota chahiye utna set karein */
+    height: auto;
+    display: block;
+    margin-top: 20px;
+}
+
+.left-side h1 {
+    font-size: 28px;
+    color: #ff6600;
+}
+
+.left-side h4 {
+    font-size: 18px;
+}
+
+.left-side p {
+    font-size: 15px;
+    line-height: 1.2;
+}
+
+.feature-list {
+    list-style: none;
+    padding: 0;
+}
+
+.feature-list li {
+    margin: 10px 0;
+    font-size: 17px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.feature-list i {
+    color: #ff6600;
+    font-size: 18px;
+}
+
+/* RIGHT SIDE CARD */
+.form-card-glass {
+
+    background: rgba(255, 255, 255, 0.55);
+    border: 1px solid rgba(255, 128, 0, 0.28);
+    padding: 45px;
+    border-radius: 15px;
+    backdrop-filter: blur(14px);
+    transition: 0.4s ease;
+}
+
+/* Card hover scale effect */
+.form-card-glass:hover {
+    transform: translateY(-5px);
+
+}
+
+.form-logo {
+    width: 60px;
+    margin: auto;
+}
+
+.form-card-glass h2 {
+    text-align: center;
+    margin: 15px 0 25px;
+    color: #ff6600;
+}
+
+/* FORM */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.signup-label {
+    font-weight: 600;
+    color: #222;
+
+}
+
+/* Input base */
+input {
+    width: 100%;
+    padding: 12px 18px;
+    border-radius: 45px;
+    border: 1.5px solid #ccc;
+    background: #fff;
+    transition: 0.35s ease;
+    outline: none;
+    margin-top: 10px;
+}
+
+/* ⭐ Gradient Border + Inner Glow on Focus */
+input:focus {
+    border: 2px solid transparent;
+    background:
+        linear-gradient(#fff, #fff) padding-box,
+        linear-gradient(45deg, #ff7a00, #ff4d00, #ff9900) border-box;
+
+}
+
+/* PASSWORD FIELD + ICON */
+.password-field {
+    position: relative;
+}
+
+.eye-icon {
+    position: absolute;
+    right: 18px;
+    top: 68%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 18px;
+    color: #444;
+    transition: 0.3s;
+}
+
+.eye-icon:hover {
+    color: #ff7a00;
+}
+
+
+/* BUTTON */
+.signup-btn {
+    margin-top: 10px;
+    padding: 12px;
+    border-radius: 50px;
+    border: none;
+    background: linear-gradient(45deg, #ff6600, #ff4d00);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+.signup-btn:hover {
+
+    transform: translateY(-2px) scale(1.02);
+}
+
+
+@media (max-width: 900px) {
+    .left-side .left-logo img {
+        width: 100px;
+    }
+
+    .signup-container {
+        width: 93%;
+        grid-template-columns: 1fr;
+
+    }
+
+    .feature-list {
+        text-align: left;
+    }
+
+}
+
+.signup-label {
+    text-align: left;
+}
+
+@media (max-width: 420px) {
+    .signup-label {
+        text-align: left;
+    }
+
+}
+
+
+/* RESET EFFECT */
+.reset-effect {
+    transform: rotateX(0deg) rotateY(0deg) !important;
+    border: 3px solid transparent !important;
+}
+
+/*  Sign up dark mode */
+.dark-mode .signup-container {
+    background-color: #0f0f0f;
+
+}
+
+.dark-mode .left-side h1 {
+    color: #ffffff;
+}
+
+.dark-mode .left-side p {
+    color: #ffffff;
+}
+
+.dark-mode .input {
+    color: #222;
+}
+
+.dark-mode .form-card-glass label {
+    color: #ffffff;
+
+}
+
+.dark-mode .left-side li {
+    color: #ffffff;
+}
+
+.dark-mode .form-card-glass {
+    background: #303030;
+
+}
+
+/* **************************** Sign-up-form End************************************* */
