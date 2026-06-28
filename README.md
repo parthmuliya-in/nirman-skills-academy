@@ -1,2 +1,0 @@
-# nirmanskillsacademy
-education website 

@@ -119,8 +119,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_course'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add New Course</title>
+    
     <style>
-        .container { max-width: 1000px;margin-left: 10%; margin-top: 50px; background: white; padding: 30px; border-radius: 10px; }
+        .container { margin: 2%; margin-top: 20px; background: white; padding: 30px; border-radius: 10px; }
         label { display: block; margin: 15px 0 5px; font-weight: bold; }
         input[type=text], textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; }
         input[type=file] { margin: 10px 0; }

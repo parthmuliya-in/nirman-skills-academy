@@ -63,25 +63,47 @@ if ($original_count > 0 && $original_count < 6) {
             /* Adjust based on your card width */
             margin-right: 20px;
             /* Spacing between cards */
-            display: flex; /* Make card flex column */
-            flex-direction: column; /* Stack children vertically */
-            position: relative; /* For potential absolute positioning if needed */
-            min-height: 400px; /* Ensure consistent height; adjust as needed */
-            padding: 10px; /* Optional padding */
+            display: flex;
+            /* Make card flex column */
+            flex-direction: column;
+            /* Stack children vertically */
+            position: relative;
+            /* For potential absolute positioning if needed */
+            min-height: 400px;
+            /* Ensure consistent height; adjust as needed */
+            padding: 10px;
+            /* Optional padding */
             box-sizing: border-box;
         }
 
         .c1 .ct1:last-child {
-            margin-top: auto; /* Push the last .ct1 (with button) to the bottom */
-            text-align: right; /* Align content to the right */
+            margin-top: auto;
+            /* Push the last .ct1 (with button) to the bottom */
+            text-align: right;
+            /* Align content to the right */
         }
 
         .c1 .ct1c2 {
-            display: inline-block; /* Keep button inline */
+            display: inline-block;
+            /* Keep button inline */
         }
 
         .c1 .ct1c2 a {
             /* Add any button styles if needed, e.g., padding, background */
+        }
+
+        .top-banner {
+            width: 100%;
+            overflow: hidden;
+            padding: 12px;
+        }
+
+        .top-banner img {
+            width: 100%;
+            height: auto;
+            display: block;
+            margin-top: 93px;
+            border-radius: 4px;
         }
     </style>
 
@@ -93,22 +115,26 @@ if ($original_count > 0 && $original_count < 6) {
     <!-- **************************** HEADER ENDS ************************************* -->
 
 
-
+    <!-- **************************** TOP BANNER ************************************* -->
+    <div class="top-banner">
+        <img src="assets/images/benner.jpg" alt="Furniture Offer Banner">
+    </div>
+    <!-- **************************** TOP BANNER END ************************************* -->
     <!-- Advertisement Popup -->
-    <div id="ad-overlay"></div>
+    <!-- <div id="ad-overlay"></div>
     <div id="ad-popup">
         <span class="ad-close">&times;</span>
 
-        <div class="ad-content">
+        <div class="ad-content"> -->
 
-            <!-- Left Image -->
+    <!-- Left Image -->
 
-            <div class="ad-left">
+    <!-- <div class="ad-left">
                 <img src="assets/images/nirmanskillofahmedabad.jpg" alt="Ad Image">
-            </div>
+            </div> -->
 
-            <!-- Right Content -->
-            <div class="ad-right">
+    <!-- Right Content -->
+    <!-- <div class="ad-right">
 
                 <img src="assets/images/logo.png" class="ad-logo">
                 <h2>Get Exiting Update for your Fingertips</h2>
@@ -117,47 +143,47 @@ if ($original_count > 0 && $original_count < 6) {
                     announcements,right in your inbox.
                 </p>
 
-                <div class="ad-buttons">
+                <div class="ad-buttons"> -->
 
-                    <!-- Button Box 1 -->
-                    <div class="ad-box">
+    <!-- Button Box 1 -->
+    <!-- <div class="ad-box">
                         <div class="ad-box-left"><i class="fa-solid fa-book-open"></i></div>
                         <div>
                             <h3>Free Handbooks & study Materials</h3>
                             <p>comprenhesive guides for every topic</p>
                         </div>
-                    </div>
+                    </div> -->
 
-                    <!-- Button Box 2 -->
-                    <div class="ad-box">
+    <!-- Button Box 2 -->
+    <!-- <div class="ad-box">
                         <div class="ad-box-left"><i class="fa-solid fa-tags"></i></div>
                         <div>
                             <h3>Exclusive Discount & Offers</h3>
                             <p>Early access to course deals & promotions</p>
                         </div>
-                    </div>
+                    </div> -->
 
-                    <!-- Button Box 3 -->
-                    <div class="ad-box">
+    <!-- Button Box 3 -->
+    <!-- <div class="ad-box">
                         <div class="ad-box-left"><i class="fa-regular fa-newspaper"></i></div>
                         <div>
                             <h3>Latest Updates & News</h3>
                             <p>Stay ahead with new courses and features</p>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
-                <!-- Input Field -->
-                <input type="email" id="ad-email" placeholder="Enter your email" class="ad-input">
+    <!-- Input Field -->
+    <!-- <input type="email" id="ad-email" placeholder="Enter your email" class="ad-input"> -->
 
-                <!-- Submit Button -->
-                <button class="ad-submit" id="ad-submit">Stay Updated</button>
+    <!-- Submit Button -->
+    <!-- <button class="ad-submit" id="ad-submit">Stay Updated</button> -->
 
-                <!-- Message -->
-                <p id="ad-message" class="ad-message"></p>
+    <!-- Message -->
+    <!-- <p id="ad-message" class="ad-message"></p>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <!-- **************************** HERO SECTION ************************************* -->
     <section class="hero">
@@ -224,9 +250,6 @@ if ($original_count > 0 && $original_count < 6) {
         </div>
     </section>
     <!-- **************************** HERO SECTION END ************************************* -->
-
-
-
     <!-- ****************EXPLORE OUR BEST COURSES*********************** -->
 
     <div class="Course Courses ">
@@ -286,8 +309,6 @@ if ($original_count > 0 && $original_count < 6) {
     </div>
     </div>
     <!-- *****************course end********************** -->
-
-
     <!-- ************Course-CHOOSE************************** -->
     <div class="Course-CHOOSE ">
         <h6 id="animated-text2">What Makes Us Different</h6>
@@ -376,9 +397,6 @@ if ($original_count > 0 && $original_count < 6) {
         </div>
     </div>
     <!-- ************Course-CHOOSE end************************** -->
-
-
-
     <!-- ****************who are section******************** -->
     <div class="students">
         <h2>Who we&nbsp;<span>are</span></h2>
@@ -432,8 +450,6 @@ if ($original_count > 0 && $original_count < 6) {
         </div>
     </div>
     <!-- ****************who are sectio end******************** -->
-
-
 
     <!-- **************************** SKILL SCROLL SECTION ************************************* -->
 
@@ -515,10 +531,6 @@ if ($original_count > 0 && $original_count < 6) {
         </div>
     </section>
     <!-- **************************** SKILL SCROLL SECTION END ************************************* -->
-
-
-
-
     <section class="vision-mission-section">
 
         <div class="vision-mision-container">
@@ -641,7 +653,8 @@ if ($original_count > 0 && $original_count < 6) {
                     <span class="arrow">+</span>
                 </button>
                 <div class="faq-answer">
-                    <p>If you enroll in any Nirmanskills Academy course through a reference from a past student, you will
+                    <p>If you enroll in any Nirmanskills Academy course through a reference from a past student, you
+                        will
                         receive a 20% discount on your course fee.</p>
                 </div>
             </div>
@@ -680,8 +693,6 @@ if ($original_count > 0 && $original_count < 6) {
             </div>
         </form>
     </div>
-
-
     <?php
     include "footer.php";
     ?>
@@ -874,7 +885,7 @@ if ($original_count > 0 && $original_count < 6) {
             setInterval(slideNext, slideInterval);
         }
     </script>
-    <Script src="assets/js/script.js"></Script>
+    <script src="assets/js/script.js"></script>
 
 </body>
 

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nirman Skills Academy - Quiz</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: #f4f6fb;
+            overflow-x: hidden;
+        }
+
+        /* ================= HERO SECTION ================= */
+
+        .quiz-hero {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 4%;
+            background: rgba(141, 103, 65, 0.1);
+            /* background:linear-gradient(135deg,#FF6600,#224abe); */
+            color: #333;
+            flex-wrap: wrap;
+        }
+
+        .hero-text {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .hero-text h1 {
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+
+        .hero-text h1 span {
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+            background: linear-gradient(135deg, rgb(255, 0, 128), rgb(121, 40, 202), rgb(0, 112, 243), rgb(56, 189, 248), rgb(255, 0, 128)) text;
+        }
+
+        .hero-text p {
+            font-size: 18px;
+            margin-bottom: 25px;
+            line-height: 1.6;
+            color: #333;
+            font-weight: 400;
+        }
+
+
+        .hero-img {
+            flex: 1;
+            text-align: center;
+            min-width: 300px;
+        }
+
+        .hero-img img {
+            width: 80%;
+            max-width: 400px;
+        }
+
+        /* ================= QUIZ CARDS ================= */
+
+        .quiz-section {
+            padding: 60px 8%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 40px;
+            margin-bottom: 40px;
+            color: #333;
+        }
+
+        .section-title span {
+            -webkit-text-fill-color: transparent;
+            background: linear-gradient(135deg, rgb(255, 0, 128), rgb(121, 40, 202), rgb(0, 112, 243), rgb(56, 189, 248), rgb(255, 0, 128)) text;
+        }
+
+        .quiz-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .quiz-card {
+            background: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid transparent;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 -2px 4px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .quiz-card i {
+            font-size: 40px;
+            margin-bottom: 15px;
+            color: #FF6600;
+
+            transition: transform 0.6s ease;
+        }
+
+        .quiz-card h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .quiz-card p {
+            font-size: 14px;
+            color: #333;
+            font-weight: 400;
+        }
+
+        .quiz-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 5px 10px rgba(255, 102, 0, 0.233), 0 -5px 10px rgba(255, 102, 0, 0.233);
+        }
+
+        .quiz-card:hover i {
+            transform: rotate(360deg) scale(1.2);
+        }
+
+        /* Responsive */
+        /* ================= RESPONSIVE DESIGN ================= */
+
+        /* Tablets */
+        @media (max-width: 992px) {
+
+            .quiz-hero {
+                flex-direction: column;
+                text-align: center;
+                padding: 40px 20px;
+            }
+
+            .hero-text h1 {
+                font-size: 32px;
+            }
+
+            .hero-text p {
+                font-size: 16px;
+            }
+
+            .hero-img img {
+                width: 70%;
+                margin-top: 20px;
+            }
+
+            .section-title {
+                font-size: 32px;
+            }
+        }
+
+
+        /* Mobile Devices */
+        @media (max-width: 600px) {
+
+            .quiz-hero {
+                padding: 30px 15px;
+            }
+
+            .hero-text h1 {
+                font-size: 24px;
+                line-height: 1.3;
+            }
+
+            .hero-text p {
+                font-size: 14px;
+            }
+
+            .hero-img img {
+                width: 90%;
+            }
+
+            .quiz-section {
+                padding: 40px 5%;
+            }
+
+            .section-title {
+                font-size: 24px;
+            }
+
+            .quiz-card {
+                padding: 20px;
+            }
+
+            .quiz-card i {
+                font-size: 30px;
+            }
+
+            .quiz-card h3 {
+                font-size: 18px;
+            }
+
+            .quiz-card p {
+                font-size: 13px;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ================= HERO SECTION ================= -->
+
+    <section class="quiz-hero">
+        <div class="hero-text">
+            <h1>Test Your Skills with <span>Our Professional Quizzes</span></h1>
+            <p>
+                Nirman Skills Academy ke course complete karne ke baad
+                apni knowledge test karein. Har subject ke liye alag quiz available hai.
+            </p>
+            <!-- <a href="#quiz-cards">Start Quiz</a> -->
+        </div>
+
+        <div class="hero-img">
+            <!-- Yahan apna PNG image daal dena -->
+            <img src="images/quiz-banner.png" alt="Quiz Image">
+        </div>
+    </section>
+
+
+    <!-- ================= QUIZ CARDS SECTION ================= -->
+
+    <section class="quiz-section" id="quiz-cards">
+
+        <h2 class="section-title">Choose Your <span>Course Quiz</span></h2>
+
+        <div class="quiz-cards">
+
+            <div class="quiz-card" onclick="location.href='quizes.html'">
+                <i class="fas fa-palette"></i>
+                <h3>Graphics Designing Quiz</h3>
+                <p>Photoshop, Illustrator, CorelDraw se related questions.</p>
+            </div>
+
+            <div class="quiz-card" onclick="location.href='quizes.html'">
+                <i class="fas fa-film"></i>
+                <h3>Animation Quiz</h3>
+                <p>2D, 3D Animation aur Motion Graphics test karein.</p>
+            </div>
+
+            <div class="quiz-card" onclick="location.href='quizes.html'">
+                <i class="fas fa-code"></i>
+                <h3>PHP Programming Quiz</h3>
+                <p>Backend logic aur PHP fundamentals ka test.</p>
+            </div>
+
+            <div class="quiz-card" onclick="location.href='quizes.html'">
+                <i class="fas fa-desktop"></i>
+                <h3>CCC Quiz</h3>
+                <p>Computer basic knowledge aur IT fundamentals.</p>
+            </div>
+
+        </div>
+
+    </section>
+
+</body>
+
+</html>

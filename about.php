@@ -221,7 +221,7 @@ include 'api/wp_app.php';
                         success through our innovative learning. See how our strategies transform challenges into
                         opportunities and create lasting impact.
                     </p>
-                    <a href="assets/file/zoho.pdf" download class="about-btn-banner">Download now</a>
+                    <a href="assets/file/Nirman Skills Academy.pdf" download class="about-btn-banner">Download now</a>
                 </div>
                 <!-- RIGHT -->
 

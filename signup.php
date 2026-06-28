@@ -4,45 +4,35 @@ include "include/config.php";
 include "header.php";
 include "api/wp_app.php";
 
-// DB connection (mysqli)
-//$conn = mysqli_connect("localhost", "root", "", "nirman");
-//if (!$conn) {
-    //die("DB Connection Failed");
-//}
-
 $message = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $name     = trim($_POST['name']);
-    $email    = trim($_POST['email']);
+    $name = trim($_POST['name']);
+    $email = trim($_POST['email']);
     $password = $_POST['password'];
-    $captcha  = trim($_POST['captcha']);
+    $captcha = trim($_POST['captcha']);
 
     // Validation
     if ($name == "" || $email == "" || $password == "" || $captcha == "") {
         $message = "All fields are required";
-    }
-    elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $message = "Invalid email format";
-    }
-    elseif (strlen($password) < 6) {
+    } elseif (strlen($password) < 6) {
         $message = "Password must be at least 6 characters";
-    }
-    elseif (!isset($_SESSION['captcha_code']) || $captcha !== $_SESSION['captcha_code']) {
+    } elseif (!isset($_SESSION['captcha_code']) || $captcha !== $_SESSION['captcha_code']) {
         $message = "Incorrect CAPTCHA";
-    }
-    else {
+    } else {
 
         // Check email exists
         $check = mysqli_query($conn, "SELECT id FROM users WHERE email='$email'");
         if (mysqli_num_rows($check) > 0) {
             $message = "Email already registered";
-        }
-        else {
+        } else {
             $hashed = password_hash($password, PASSWORD_DEFAULT);
 
-            $insert = mysqli_query($conn,
+            $insert = mysqli_query(
+                $conn,
                 "INSERT INTO users (name, email, password, created_at)
                  VALUES ('$name','$email','$hashed', NOW())"
             );
@@ -113,8 +103,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <h4>Welcome to the Nirman Skills Academy</h4>
                 <p>Where creativity meets real-world skills — we help you master design, coding, and digital tools with
                     expert-led, practical training.</p>
-
-
                 <ul class="feature-list">
                     <li><i class="fa-solid fa-check"></i>Learn directly from skilled industry professionals.</li>
                     <li><i class="fa-solid fa-check"></i> Study anytime, anywhere with complete flexibility.</li>
@@ -155,10 +143,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
                         <div class="captcha">
                             <img src="captcha.php" alt="CAPTCHA" id="captcha_img">
-                            <!--<span class="refresh"
+                            <span class="refresh"
                                 onclick="document.getElementById('captcha_img').src='captcha.php?'+Date.now();"><i
-                                    class="fa-solid fa-arrows-rotate"></i></span>-->
-                                    <span class="refresh" onclick="document.getElementById('captcha_img').src='captcha.php?'+Date.now();"><i class="fa-solid fa-arrows-rotate" style="color: #FFD43B;"></i></span>
+                                    class="fa-solid fa-arrows-rotate" style="color: #FFD43B;"></i></span>
 
                         </div>
                         <label>Enter CAPTCHA code:</label>
@@ -166,28 +153,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <button type="submit" class="signup-btn">Sign Up</button>
                         <span>You have account? <a href="login.php" style="color: #fa8d08ff;">Login Now</a></span>
                     </form>
-
                 </div>
             </div>
         </div>
-
     </main>
-
-
-<?php
- include "footer.php";
-?>
-
-
-
-
+    <?php
+    include "footer.php";
+    ?>
     <Script src="assets/js/script.js"></Script>
     <Script src="assets/js/signup.js"></Script>
-
-
-
-
-
 </body>
 
 </html>

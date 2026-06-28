@@ -32,7 +32,7 @@ if (!isset($_SESSION['csrf'])) {
 
     <!-- **************************** HEADER ENDS ************************************* -->
     <br><br><br>
-    
+
     <div class="contact-banner">
         <!-- <h2>Get In Touch</h2>
         <p>The Ultimate Guide To Ace SDE Interviews.</p> -->

@@ -1,50 +1,120 @@
 <?php
-include "header.php";
 include "../include/config.php";
 // session_start();
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require __DIR__ . '/../vendor/phpmailer/phpmailer/src/Exception.php';
+require __DIR__ . '/../vendor/phpmailer/phpmailer/src/PHPMailer.php';
+require __DIR__ . '/../vendor/phpmailer/phpmailer/src/SMTP.php';
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Delete
-if (isset($_GET['delete'])) {
-    $delete_id = (int) $_GET['delete'];
-    $conn->query("DELETE FROM enrollments WHERE id = $delete_id");
-    header("Location: enrollments.php");
+$message = "";
+/* =========================
+SHOW ALERT AFTER REDIRECT
+========================= */
+if (isset($_SESSION['mail_status'])) {
+    if ($_SESSION['mail_status'] == "success") {
+        echo "<script>alert('Credentials sent successfully!');</script>";
+    } elseif ($_SESSION['mail_status'] == "fail") {
+        echo "<script>alert('Email sending failed!');</script>";
+    } elseif ($_SESSION['mail_status'] == "already") {
+        echo "<script>alert('Credentials already sent!');</script>";
+    }
+    unset($_SESSION['mail_status']);
+}
+
+/* =========================
+   SEND CREDENTIALS
+========================= */
+if (isset($_GET['send'])) {
+
+    // echo "MAIL CODE STARTED<br>";
+
+    $id = (int) $_GET['send'];
+
+    // FETCH STUDENT
+    $stmt = $conn->prepare("SELECT student_name, student_email FROM enrollments WHERE id=?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $resultUser = $stmt->get_result();
+
+    if ($resultUser->num_rows == 0) {
+        die("Student not found");
+    }
+
+    $user = $resultUser->fetch_assoc();
+
+    // ✅ DEFINE VARIABLES
+    $name = $user['student_name'];
+    $email = $user['student_email'];
+
+    // ✅ GENERATE VALUES
+    $enrollment_no = "ENR" . date("Y") . str_pad($id, 5, "0", STR_PAD_LEFT);
+    $plain_password = bin2hex(random_bytes(4));
+
+    $hashed_password = password_hash($plain_password, PASSWORD_BCRYPT);
+
+    $update = $conn->prepare("UPDATE enrollments SET enrollment_no=?, password=?, credentials_sent=1 WHERE id=?");
+    $update->bind_param("ssi", $enrollment_no, $hashed_password, $id);
+
+    if (!$update->execute()) {
+        die("Update Failed: " . $update->error);
+    }
+
+
+    $mail = new PHPMailer(true);
+
+    try {
+        $mail->isSMTP();
+        $mail->Host = 'smtp.gmail.com';
+        $mail->SMTPAuth = true;
+
+        $mail->Username = 'parthmuliya02@gmail.com';
+        $mail->Password = 'sbdszsstzgzyaqpn';
+
+        $mail->SMTPSecure = 'tls';
+        $mail->Port = 587;
+
+        // $mail->setFrom('parthmuliya02@gmail.com', 'Test');
+        // $mail->addAddress('parthmuliya02@gmail.com'); // test self
+        $mail->setFrom('parthmuliya02@gmail.com', 'Nirman Skills');
+        $mail->addAddress($email, $name);
+
+        $mail->isHTML(true);
+        $mail->Subject = 'Your Course Login Details';
+
+        $mail->Body = "
+        <h3>Hello {$name}</h3>
+        <p>Your enrollment is confirmed.</p>
+        <p><b>Enrollment No:</b> {$enrollment_no}</p>
+        <p><b>Password:</b> {$plain_password}</p>
+        <p>Please login and change your password.</p>
+    ";
+
+        if ($mail->send()) {
+            echo "✅ MAIL SENT SUCCESS";
+        } else {
+            echo "❌ MAIL FAILED: " . $mail->ErrorInfo;
+        }
+
+    } catch (Exception $e) {
+        echo "❌ EXCEPTION: " . $mail->ErrorInfo;
+    }
+
     exit();
 }
-
-// Update
-$message = "";
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_enrollment'])) {
-    $id = (int) $_POST['enroll_id'];
-    $name = $conn->real_escape_string($_POST['student_name']);
-    $email = $conn->real_escape_string($_POST['student_email']);
-    $phone = $conn->real_escape_string($_POST['student_phone']);
-    $msg = $conn->real_escape_string($_POST['message']);
-
-    $sql = "UPDATE enrollments SET 
-            student_name = '$name',
-            student_email = '$email',
-            student_phone = '$phone',
-            message = '$msg'
-            WHERE id = $id";
-
-    if ($conn->query($sql)) {
-        $message = "<div class='alert success'>Enrollment updated successfully!</div>";
-    } else {
-        $message = "<div class='alert error'>Error: " . $conn->error . "</div>";
-    }
-}
-
 // Fetch enrollments
 $sql = "SELECT e.*, c.title AS course_name 
-        FROM enrollments e 
-        LEFT JOIN courses c ON e.course_id = c.id 
-        ORDER BY e.enrolled_at DESC";
+            FROM enrollments e 
+            LEFT JOIN courses c ON e.course_id = c.id 
+            ORDER BY e.enrolled_at DESC";
 
 $result = $conn->query($sql);
+include "header.php";
 ?>
 
 <!DOCTYPE html>
@@ -55,25 +125,35 @@ $result = $conn->query($sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Enrollments </title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css"> <!-- External CSS -->
     <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+
+        /* CONTAINER */
         .container {
-            max-width: 1400px;
-            margin-top: 50px;
-            background: white;
-            padding: 25px;
+            width: 98%;
+            margin: 30px auto;
+            background: #fff;
+            padding: 20px;
             border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
         }
 
+        /* TITLE */
         h1 {
-            /* text-align: center; */
             color: #ff6600;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
+            font-size: 26px;
         }
 
+        /* ALERT */
         .alert {
-            padding: 15px;
-            margin: 20px 0;
+            padding: 12px;
+            margin-bottom: 15px;
             border-radius: 8px;
             text-align: center;
             font-weight: bold;
@@ -82,77 +162,124 @@ $result = $conn->query($sql);
         .alert.success {
             background: #d4edda;
             color: #155724;
-            border: 1px solid #c3e6cb;
         }
 
         .alert.error {
             background: #f8d7da;
             color: #721c24;
-            border: 1px solid #f5c6cb;
         }
 
+        /* TABLE */
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
+            margin-top: 15px;
         }
 
-        th,
-        td {
-            padding: 15px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-
+        /* HEADER */
         th {
             background: linear-gradient(135deg, #ff7a00, #ff4d00);
             color: white;
+            padding: 12px;
+            font-size: 14px;
+            text-align: left;
         }
 
+        /* CELLS */
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+        }
+
+        /* ROW HOVER */
         tr:hover {
-            background: #f8fbff;
+            background: #f0f8ff;
         }
 
+        /* ACTION ICONS */
         .actions a {
-            margin: 0 8px;
+            margin: 0 6px;
             font-size: 18px;
-            cursor: pointer;
-        }
-
-        .edit-icon {
-            color: #28a745;
+            text-decoration: none;
         }
 
         .delete-icon {
             color: #dc3545;
         }
 
+        .actions a:hover {
+            opacity: 0.7;
+        }
+
+        /* NO DATA */
         .no-data {
             text-align: center;
-            padding: 50px;
-            color: #666;
+            padding: 40px;
+            color: #777;
             font-size: 18px;
         }
 
+        /* ======================
+   MOBILE RESPONSIVE TABLE
+====================== */
+        @media (max-width: 768px) {
+
+            table,
+            thead,
+            tbody,
+            th,
+            td,
+            tr {
+                display: block;
+                width: 100%;
+            }
+
+            thead {
+                display: none;
+            }
+
+            tr {
+                background: #fff;
+                margin-bottom: 15px;
+                border-radius: 10px;
+                box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+                padding: 10px;
+            }
+
+            td {
+                border: none;
+                padding: 8px 10px;
+                position: relative;
+                font-size: 13px;
+            }
+
+            td::before {
+                content: attr(data-label);
+                font-weight: bold;
+                display: block;
+                color: #ff6600;
+                margin-bottom: 3px;
+            }
+        }
+
+        /* MODAL */
         .modal {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
             z-index: 9999;
             justify-content: center;
             align-items: center;
         }
 
         .modal-content {
-            background: white;
-            padding: 30px;
+            background: #fff;
+            padding: 25px;
             border-radius: 12px;
             width: 90%;
-            max-width: 600px;
+            max-width: 500px;
             position: relative;
         }
 
@@ -160,34 +287,45 @@ $result = $conn->query($sql);
             position: absolute;
             top: 10px;
             right: 15px;
-            font-size: 28px;
+            font-size: 26px;
             cursor: pointer;
-            color: #aaa;
+            color: #999;
         }
 
         .close-modal:hover {
             color: #000;
         }
 
+        /* FORM */
         .modal input,
         .modal textarea {
             width: 100%;
-            padding: 12px;
-            margin: 10px 0;
+            padding: 10px;
+            margin-top: 8px;
+            margin-bottom: 12px;
             border: 1px solid #ddd;
-            border-radius: 8px;
-            box-sizing: border-box;
+            border-radius: 6px;
+        }
+
+        .modal input:focus,
+        .modal textarea:focus {
+            outline: none;
+            border-color: #ff6600;
         }
 
         .modal button {
-            padding: 12px 25px;
-            background: #007cba;
+            width: 100%;
+            padding: 12px;
+            background: #ff6600;
             color: white;
             border: none;
             border-radius: 8px;
             cursor: pointer;
-            width: 100%;
-            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        .modal button:hover {
+            background: #e65c00;
         }
     </style>
 </head>
@@ -206,7 +344,6 @@ $result = $conn->query($sql);
             <table>
                 <thead>
                     <tr>
-                        <th>ID</th>
                         <th>User ID</th>
                         <th>Course</th>
                         <th>Student Name</th>
@@ -220,20 +357,25 @@ $result = $conn->query($sql);
                 <tbody>
                     <?php while ($row = $result->fetch_assoc()): ?>
                         <tr>
-                            <td><?php echo $row['id']; ?></td>
-                            <td><?php echo $row['user_id']; ?></td>
-                            <td><?php echo htmlspecialchars($row['course_name'] ?: $row['course_title']); ?></td>
-                            <td><?php echo htmlspecialchars($row['student_name']); ?></td>
-                            <td><?php echo htmlspecialchars($row['student_email']); ?></td>
-                            <td><?php echo htmlspecialchars($row['student_phone']); ?></td>
-                            <td><?php echo htmlspecialchars(substr($row['message'], 0, 50)) . (strlen($row['message']) > 50 ? '...' : ''); ?>
+                            <td data-label="User ID"><?php echo $row['user_id']; ?></td>
+                            <td data-label="Course"><?php echo htmlspecialchars($row['course_name'] ?: $row['course_title']); ?></td>
+                            <td data-label="Student Name"><?php echo htmlspecialchars($row['student_name']); ?></td>
+                            <td data-label="Email"><?php echo htmlspecialchars($row['student_email']); ?></td>
+                            <td data-label="Phone"><?php echo htmlspecialchars($row['student_phone']); ?></td>
+                            <td data-label="Message"><?php echo htmlspecialchars(substr($row['message'], 0, 50)) . (strlen($row['message']) > 50 ? '...' : ''); ?>
                             </td>
-                            <td><?php echo date("d M Y, h:i A", strtotime($row['enrolled_at'])); ?></td>
-                            <td class="actions">
+                            <td data-label="Enrolled"><?php echo date("d M Y, h:i A", strtotime($row['enrolled_at'])); ?></td>
+                            <td class="actions" data-label="Actions">
                                 <a href="enrollments.php?delete=<?php echo $row['id']; ?>" class="delete-icon" title="Delete"
                                     onclick="return confirm('Are you sure you want to delete this enrollment?');">
                                     <i class="fas fa-trash-alt"></i>
-                                </a>
+                                </a>|<?php
+                                if ($row['credentials_sent'] == 1) {
+                                    echo " Sent";
+                                } else {
+                                    echo '<a href="enrollments.php?send=' . $row['id'] . '"><i class="fas fa-paper-plane"></i></a>';
+                                } ?>
+
                             </td>
                         </tr>
                     <?php endwhile; ?>

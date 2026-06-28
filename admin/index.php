@@ -82,7 +82,7 @@ $recent_contacts = $conn->query("
         header {
             background: var(--primary);
             color: white;
-            padding: 20px;
+            padding: 8px;
             text-align: center;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }

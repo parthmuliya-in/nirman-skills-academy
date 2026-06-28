@@ -1,6 +1,6 @@
 <?php
 // session_start();
-include "header.php";
+// include "header.php";
 include "../include/config.php";
 
 // Admin login check (uncomment when ready)
@@ -28,23 +28,51 @@ if (isset($_POST['edit_user'])) {
     $name = trim($_POST['name']);
     $email = trim($_POST['email']);
 
-    $password = trim($_POST['password']);
-    if (!empty($password)) {
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-        $stmt = $conn->prepare("UPDATE users SET name=?, email=?, password=?, updated_at=NOW() WHERE id=?");
-        $stmt->bind_param("sssi", $name, $email, $hashed_password, $edit_id);
-    } else {
-        $stmt = $conn->prepare("UPDATE users SET name=?, email=?, updated_at=NOW() WHERE id=?");
-        $stmt->bind_param("ssi", $name, $email, $edit_id);
+    // ✅ Check duplicate email
+    $check = $conn->prepare("SELECT id FROM users WHERE email=? AND id != ?");
+    $check->bind_param("si", $email, $edit_id);
+    $check->execute();
+    $resultCheck = $check->get_result();
+
+    if ($resultCheck->num_rows > 0) {
+        echo "<script>alert('Email already exists!'); window.location='manage_users.php';</script>";
+        exit;
     }
+
+    // ✅ Correct update
+    $stmt = $conn->prepare("UPDATE users SET name=?, email=?, updated_at=NOW() WHERE id=?");
+    $stmt->bind_param("ssi", $name, $email, $edit_id);
+
     $stmt->execute();
     $stmt->close();
+
     header("Location: manage_users.php");
     exit;
 }
+// if (isset($_POST['edit_user'])) {
+//     $edit_id = (int) $_POST['user_id'];
+//     $name = trim($_POST['name']);
+//     $email = trim($_POST['email']); 
+
+//     // $password = trim($_POST['password']);
+//     if (!empty($email)) {
+//         // $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+//         $stmt = $conn->prepare("UPDATE users SET name=?, email=?, updated_at=NOW() WHERE id=?");
+//         $stmt->bind_param("ssi", $name, $email, $edit_id);
+//     } else {
+//         $stmt = $conn->prepare("UPDATE users SET name=?, email=?, updated_at=NOW() WHERE id=?");
+//         $stmt->bind_param("ssi", $name, $email, $edit_id);
+//     }
+//     $stmt->execute();
+//     $stmt->close();
+//     header("Location: manage_users.php");
+//     exit;
+// }
 
 // Fetch all users
 $result = $conn->query("SELECT * FROM users ORDER BY id DESC");
+include "header.php";
+
 ?>
 
 <!DOCTYPE html>

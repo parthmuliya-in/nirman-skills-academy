@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nirman Skill</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Poppins, sans-serif;
+    }
+
+    body {
+      display: flex;
+      min-height: 100vh;
+      background: #f3f3f3;
+      overflow-x: hidden;
+    }
+
+    /* ===== SIDEBAR ===== */
+    .sidebar {
+      width: 75px;
+      background: #fff;
+      box-shadow: 2px 0 20px rgba(0, 0, 0, 0.06);
+      transition: .3s ease;
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      left: 0;
+      top: 0;
+      height: 100vh;
+      z-index: 1001;
+    }
+
+    .sidebar.active {
+      width: 240px;
+    }
+
+    /* ===== TOP ===== */
+    .top-section {
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 15px;
+      border-bottom: 1px solid #eee;
+      color: #ff6600;
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .menu-btn {
+      font-size: 22px;
+      cursor: pointer;
+      color: #ff6600;
+      transition: 0.3s;
+    }
+
+    .menu-btn:hover {
+      transform: scale(1.1);
+    }
+
+    .logo-text {
+      display: none;
+      margin-left: 10px;
+      font-weight: 600;
+      color: #ff6600;
+    }
+
+    .sidebar.active .logo-text {
+      display: block;
+    }
+
+    /* ===== MENU ===== */
+    .menu {
+      flex: 1;
+      padding-top: 10px;
+    }
+
+    .menu a {
+      display: flex;
+      align-items: center;
+      height: 55px;
+      padding: 0 20px;
+      text-decoration: none;
+      color: #333;
+      border-radius: 10px;
+      margin: 0 10px;
+      transition: .3s;
+      position: relative;
+    }
+
+    .menu a i {
+      width: 30px;
+      text-align: center;
+      color: #ff6600;
+      font-size: 18px;
+      transition: 0.3s;
+    }
+
+    .menu a span {
+
+      margin-left: 15px;
+      opacity: 0;
+      transform: translateX(-10px);
+      transition: all 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .sidebar.active .menu a span {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+
+    /* .menu a.active{
+  background:#ff6600;
+  color:#fff;
+  
+} */
+
+
+    .menu a.active i {
+      color: #fff;
+    }
+
+    /* Active Highlight */
+    .menu a.active {
+      background: #ff6600;
+      color: #fff;
+      box-shadow: 0 4px 15px rgba(255, 102, 0, 0.3);
+      transform: translateX(5px);
+    }
+
+    /* ===== MAIN ===== */
+    .main {
+      margin-left: 75px;
+      transition: 0.35s cubic-bezier(.25, .8, .25, 1);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .sidebar.active~.main {
+      margin-left: 240px;
+    }
+
+    /* ===== HEADER ===== */
+    .header {
+      height: 70px;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 30px;
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      line-height: 1;
+    }
+
+    .header-title {
+      font-weight: 600;
+      font-size: 20px;
+      color: #141414
+    }
+
+    .header-right {
+      display: flex;
+      gap: 15px;
+    }
+
+    .header-right i {
+      font-size: 20px;
+      cursor: pointer;
+      color: #ff6600;
+      padding: 10px;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+    }
+
+    .header-right i:hover {
+      transform: scale(1.15);
+      box-shadow: 0 4px 12px rgba(104, 104, 104, 0.25);
+    }
+
+    /* ===== CONTENT ===== */
+    .content {
+      flex: 1;
+    }
+
+    .content iframe {
+      width: 100%;
+      height: calc(100vh - 70px);
+      border: none;
+    }
+
+    /* ===== OVERLAY (Mobile) ===== */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      /*  background:rgba(0,0,0,0.3); */
+      opacity: 0;
+      pointer-events: none;
+      transition: .3s;
+      z-index: 1000;
+    }
+
+    .overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    /* ===== MOBILE ===== */
+    @media(max-width:768px) {
+
+      /* Sidebar always visible in collapsed form */
+      .sidebar {
+        width: 75px;
+        left: 0;
+      }
+
+      /* Expand without pushing content */
+      .sidebar.active {
+        width: 240px;
+        position: fixed;
+        z-index: 1002;
+      }
+
+      /* Main always full width */
+      .main {
+        margin-left: 75px;
+      }
+
+      /* Do NOT push content when expanded */
+      .sidebar.active~.main {
+        margin-left: 75px;
+      }
+
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="sidebar" id="sidebar">
+
+    <div class="top-section">
+      <div class="menu-btn" onclick="toggleSidebar()">
+        <i class="fa-solid fa-bars"></i>
+      </div>
+      <div class="logo-text">Nirman Skill</div>
+    </div>
+
+    <div class="menu">
+      <a href="quiz-home.html" class="menu-link active"><i class="fa-solid fa-clipboard-question"></i><span>Quizzes</span></a>
+      <!-- <a href="inbox.html" class="menu-link"><i class="fa-solid fa-envelope"></i><span>Inbox</span></a> -->
+      <a href="Assignment.php" class="menu-link"><i class="fa-solid fa-file-lines"></i><span>Practices</span></a>
+      <!-- <a href="course.html" class="menu-link"><i class="fa-solid fa-book"></i><span>Courses</span></a> -->
+      <a href="my_certificate.php" class="menu-link"><i
+        class="fa-solid fa-certificate"></i><span>Certification</span></a>
+        <!-- <a href="grade-card.html" class="menu-link"><i class="fa-solid fa-chart-line"></i><span>Report</span></a> -->
+        <a href="payment.php" class="menu-link"><i class="fa-solid fa-money-bill-transfer"></i><span>Payment History</span></a>
+        <a href="profile.php" class="menu-link"><i class="fa-solid fa-user"></i><span>Profile</span></a>
+        <!-- <a href="settings.html" class="menu-link"><i class="fa-solid fa-gear"></i><span>Settings</span></a> -->
+    </div>
+
+  </div>
+
+  <div class="main">
+
+    <div class="header">
+      <div id="pageTitle">Dashboard</div>
+      <div class="header-right">
+        <!-- <i class="fa-solid fa-bell"></i> -->
+        <!-- <a href="profile.html"><i class="fa-solid fa-user"></i></a> -->
+        <a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i></a>
+      </div>
+    </div>
+
+    <div class="content">
+      <iframe id="contentFrame" src="quiz-home.html "></iframe>
+    </div>
+
+  </div>
+
+  <div class="overlay" id="overlay"></div>
+
+  <script>
+    const sidebar = document.getElementById("sidebar");
+    const overlay = document.getElementById("overlay");
+    const menuLinks = document.querySelectorAll(".menu-link");
+    const frame = document.getElementById("contentFrame");
+    const pageTitle = document.getElementById("pageTitle");
+
+    function toggleSidebar() {
+      sidebar.classList.toggle("active");
+      if (window.innerWidth <= 768) {
+        overlay.classList.toggle("active");
+      }
+    }
+
+    // Close sidebar when clicking overlay
+    overlay.addEventListener("click", () => {
+      sidebar.classList.remove("active");
+      overlay.classList.remove("active");
+    });
+
+    // Load pages in iframe
+    menuLinks.forEach(link => {
+      link.addEventListener("click", function (e) {
+        e.preventDefault();
+
+        menuLinks.forEach(l => l.classList.remove("active"));
+        this.classList.add("active");
+
+        frame.src = this.getAttribute("href");
+        pageTitle.textContent = this.innerText.trim();
+
+        if (window.innerWidth <= 768) {
+          sidebar.classList.remove("active");
+          overlay.classList.remove("active");
+        }
+      });
+    });
+  </script>
+
+</body>
+
+</html>

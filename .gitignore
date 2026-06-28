@@ -1,0 +1,45 @@
+# Dependency folders
+/vendor/
+/node_modules/
+
+# Uploads & user files
+/uploads/
+/myport/images/
+
+# Environment & config
+.env
+.env.local
+config.php
+
+# Logs
+*.log
+error_log
+
+# Cache files
+.cache/
+tmp/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
+
+# Composer
+composer.phar
+
+# Large media files
+*.mp4
+*.zip
+*.rar
+
+# Generated certificates or exports
+/myport/certificates/
+/exports/
+
+# Session files
+*.session
+
+# Backup files
+*.bak

@@ -289,7 +289,7 @@ $result = $conn->query($sql);
 
     <div class="container">
         <div class="header">
-            <h1><i class="fas fa-book"></i> Manage Courses</h1>
+            <h2><i class="fas fa-book"></i> Manage Courses</h2>
             <a href="add_course2.php" class="add-btn">
                 <i class="fas fa-plus"></i> Add New Course
             </a>

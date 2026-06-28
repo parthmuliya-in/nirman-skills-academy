@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nirman Skills Academy - Professional Quiz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            /* min-height: 100vh; */
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        #chooseHeading {
+            font-size: 40px;
+            text-align: center;
+            padding-bottom: 3px;
+            border-bottom: 2px solid #FF6600;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .quiz-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px;
+            margin-bottom: 10px;
+            background: rgba(141, 103, 65, 0.1);
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+
+        .quiz-item i {
+            font-size: 22px;
+            margin-right: 15px;
+            color: #FF6600;
+        }
+
+        .quiz-item:hover {
+            background: #ff660034;
+        }
+
+
+        /* Timer */
+        .timer {
+            text-align: right;
+            font-weight: bold;
+            font-size: 25px;
+            color: #FF6600;
+            display: none;
+        }
+
+        #description {
+            display: none;
+            margin-top: 20px;
+            padding: 0 20px;
+        }
+
+        #description h3 {
+            font-size: 33px;
+            color: #222;
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #FF6600;
+            width: 400px;
+        }
+
+        #description h2 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        #description p {
+            font-size: 19px;
+            color: #333;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        #description ul {
+            list-style: disc inside;
+            color: #222;
+            margin-bottom: 20px;
+            padding-left: 10px;
+        }
+
+        #description ul li {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        /* Question */
+        .question {
+            margin-top: 70px;
+            margin-bottom: 30px;
+        }
+
+        #questionText {
+            margin-bottom: 40px;
+            font-size: 25px;
+        }
+
+        .options button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            background: #f9f9f9;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 18px;
+        }
+
+        .options button.selected {
+            background: #ff660034;
+        }
+
+        .btn-group {
+            text-align: right;
+        }
+
+        .nav-btn,
+        .submit-btn,
+        .result-btn {
+            padding: 10px 20px;
+            margin: 10px 10px 0 0;
+            border: none;
+            border-radius: 5px;
+            font-size: 20px;
+            font-weight: 700;
+            cursor: pointer;
+            background: #FF6600;
+            color: #fff;
+        }
+
+
+        .result {
+            text-align: center;
+            padding: 40px 20px;
+            border-radius: 15px;
+            background: #ffffff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+
+
+            animation: fadeIn 0.6s ease;
+        }
+
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .score-circle {
+            margin: 20px auto;
+            position: relative;
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            background: conic-gradient(#FF6600 0deg, #eee 0deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 35px;
+            font-weight: bold;
+            color: #333;
+            transition: 1s ease;
+        }
+
+        /* .pass {
+            background: linear-gradient(45deg, #4CAF50, #2e7d32);
+        }
+
+        .fail {
+            background: linear-gradient(45deg, #e53935, #b71c1c);
+        } */
+
+        .result-stats {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin-top: 20px;
+            font-size: 20px;
+        }
+
+        .result-stats p {
+            margin: 8px 0;
+            width: 50%;
+        }
+
+
+        .result h2 {
+            font-size: 40px;
+            margin-bottom: 50px;
+            color: #222;
+            /* text-align: center; */
+        }
+
+        .result p {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #333;
+            /* text-align: center; */
+        }
+
+        .review {
+            display: none;
+            margin-top: 20px;
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+
+
+
+
+        .result-btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .result-btn {
+            padding: 10px 20px;
+            border-radius: 30px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Review */
+        .review-btn {
+            background: linear-gradient(45deg, #4CAF50, #43A047);
+            color: white;
+        }
+
+        /* Restart */
+        .retry-btn {
+            background: linear-gradient(45deg, #FF6600, #FF8533);
+            color: white;
+        }
+
+        /* Home */
+        .back-home {
+            background: #ffffff;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+
+        /* Hover */
+        .result-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+
+
+        .correct {
+            color: green;
+        }
+
+        .wrong {
+            color: red;
+        }
+
+
+
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .result-btn-group {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .result-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .quiz-item {
+                padding: 15px 5px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h2 id="chooseHeading">Choose Test</h2>
+
+        <div id="quizList"></div>
+
+        <div class="timer" id="timer">
+            <i class="fa-solid fa-trophy"></i> Time Left: <span id="time">10:00</span>
+        </div>
+
+        <!-- Description Section -->
+        <div id="description">
+            <h3 id="descTitle"></h3>
+            <h2>Ready to Test Your Knowledge?</h2>
+            <p>This quiz is not just about scoring marks — it’s about learning, growing, and strengthening your skills.
+                Each question has been thoughtfully designed to deepen your understanding and challenge your thinking.
+                Take your time to read every question carefully, analyze your options, and choose the best possible
+                answer. Remember, every attempt is an opportunity to improve and build confidence. Stay focused, stay
+                positive, and give your very best effort.</p>
+
+            <ul>
+                <li>Total Questions: 20</li>
+                <li>Total Marks: 20</li>
+                <li>Each Question carries 1 mark</li>
+                <li>Do not refresh the page</li>
+                <li>Time Limit: 10 Minutes</li>
+                <li>All the Best <i class="fa-solid fa-thumbs-up"
+                        style="color: rgb(177, 117, 5); font-size: 25px; margin-left: 10px;"></i></li>
+            </ul>
+
+            <button class="nav-btn" id="startQuizBtn">Start Quiz</button>
+        </div>
+
+
+        <div id="quizArea" style="display:none;">
+            <div class="question">
+                <h3 id="questionText"></h3>
+                <div class="options" id="options"></div>
+            </div>
+
+            <div class="btn-group">
+                <button class="nav-btn" id="prevBtn">Previous</button>
+                <button class="nav-btn" id="nextBtn">Next</button>
+                <button class="submit-btn" id="submitBtn" style="display:none;">Submit</button>
+            </div>
+
+        </div>
+
+        <div class="result" id="result"></div>
+        <div class="review" id="review"></div>
+
+    </div>
+
+    <script>
+
+        // Generate 10 Tests
+        let tests = [];
+        for (let t = 1; t <= 10; t++) {
+            tests.push({
+                title: "Test " + t,
+                questions: generateQuestions()
+            });
+        }
+
+        function generateQuestions() {
+
+            // 🔥 Big Question Bank (add more anytime)
+            const questionBank = [
+                { q: "What does CPU stand for?", o: ["Central Process Unit", "Central Processing Unit", "Computer Personal Unit", "Central Processor Utility"], a: 1 },
+                { q: "Which device is used for input?", o: ["Monitor", "Printer", "Keyboard", "Speaker"], a: 2 },
+                { q: "Which is an operating system?", o: ["Windows", "Mouse", "CPU", "Excel"], a: 0 },
+                { q: "RAM stands for?", o: ["Random Access Memory", "Read Access Memory", "Run Access Memory", "None"], a: 0 },
+                { q: "Which is storage device?", o: ["Hard Disk", "Keyboard", "Monitor", "Mouse"], a: 0 },
+                { q: "What does HTML stand for?", o: ["Hyper Text Markup Language", "High Text Machine Language", "Hyper Tool Markup Language", "None"], a: 0 },
+                { q: "Which is a programming language?", o: ["Python", "Windows", "Chrome", "Keyboard"], a: 0 },
+                { q: "Which key is used to refresh?", o: ["F1", "F2", "F5", "F12"], a: 2 },
+                { q: "Which is output device?", o: ["Printer", "Keyboard", "Mouse", "Scanner"], a: 0 },
+                { q: "What is full form of URL?", o: ["Uniform Resource Locator", "Universal Resource Link", "United Resource Locator", "None"], a: 0 },
+                { q: "Which is database software?", o: ["MS Access", "MS Word", "Paint", "Notepad"], a: 0 },
+                { q: "Which company made Windows?", o: ["Google", "Microsoft", "Apple", "IBM"], a: 1 },
+                { q: "Which is search engine?", o: ["Google", "Windows", "CPU", "Excel"], a: 0 },
+                { q: "Binary number system uses?", o: ["0 and 1", "1 and 2", "0 to 9", "A and B"], a: 0 },
+                { q: "Which is web browser?", o: ["Chrome", "Word", "Excel", "PowerPoint"], a: 0 },
+                { q: "What is MS Word?", o: ["Spreadsheet", "Word Processor", "Browser", "OS"], a: 1 },
+                { q: "Which is antivirus?", o: ["Quick Heal", "Excel", "PowerPoint", "CPU"], a: 0 },
+                { q: "Which memory is permanent?", o: ["RAM", "ROM", "Cache", "Register"], a: 1 },
+                { q: "Shortcut to copy?", o: ["Ctrl + C", "Ctrl + V", "Ctrl + X", "Ctrl + A"], a: 0 },
+                { q: "Shortcut to paste?", o: ["Ctrl + P", "Ctrl + V", "Ctrl + C", "Ctrl + Z"], a: 1 },
+                { q: "Which is spreadsheet software?", o: ["Excel", "Word", "Paint", "Chrome"], a: 0 },
+                { q: "What is internet?", o: ["Network of networks", "Software", "Hardware", "Browser"], a: 0 },
+                { q: "Which is cloud storage?", o: ["Google Drive", "CPU", "RAM", "Monitor"], a: 0 }
+            ];
+
+            // 🔀 Shuffle Question Bank
+            // let shuffled = questionBank.sort(() => 0.5 - Math.random());
+
+            // // 🎯 Pick 20 random unique questions
+            // let selectedQuestions = shuffled.slice(0, 20);
+
+            // // Add selected property
+            // return selectedQuestions.map(q => ({ ...q, selected: null }));
+
+            function shuffleArray(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    let j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
+                return array;
+            }
+
+            let shuffled = shuffleArray([...questionBank]);
+
+            let selectedQuestions = shuffled.slice(0, 20);
+
+            return selectedQuestions.map(q => ({ ...q, selected: null }));
+
+        }
+
+
+
+        // Create Quiz List
+        const quizList = document.getElementById("quizList");
+        tests.forEach((test, index) => {
+            let div = document.createElement("div");
+            div.className = "quiz-item";
+            div.innerHTML = `
+    <div style="display:flex; align-items:center;">
+        <i class="fa fa-book"></i>
+        <div>
+            <strong>${test.title}</strong><br>
+            20 Questions | 20 Marks
+        </div>
+    </div>
+
+    <div style="display:flex; align-items:center; gap:0px; font-size:14px; color:#333;">
+        <i class="fa-solid fa-clock"></i>
+        10 Min
+    </div>
+`;
+            div.onclick = () => startTest(index);
+            quizList.appendChild(div);
+        });
+
+        let currentTest = null;
+        let currentQ = 0;
+        let timerInterval;
+        let timeLeft = 600;
+
+        // Start Test
+        function startTest(index) {
+            currentTest = tests[index];
+
+            // Hide Quiz Selection Area
+            document.getElementById("chooseHeading").style.display = "none";
+            quizList.style.display = "none";
+
+            // Show Description
+            document.getElementById("description").style.display = "block";
+
+            document.getElementById("descTitle").innerText =
+                currentTest.title + " - Instructions";
+        }
+
+
+        // Timer
+        function startTimer() {
+            timeLeft = 600;
+            timerInterval = setInterval(() => {
+                let minutes = Math.floor(timeLeft / 60);
+                let seconds = timeLeft % 60;
+                document.getElementById("time").innerText =
+                    `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    alert("Time Over!");
+                    submitQuiz(true);
+                }
+                timeLeft--;
+            }, 1000);
+        }
+
+        // Show Question
+        function showQuestion() {
+            let q = currentTest.questions[currentQ];
+            document.getElementById("questionText").innerText =
+                `Q${currentQ + 1}. ${q.q}`;
+
+            let options = document.getElementById("options");
+            options.innerHTML = "";
+
+            q.o.forEach((opt, i) => {
+                let btn = document.createElement("button");
+                btn.innerText = opt;
+                if (q.selected === i) btn.classList.add("selected");
+
+                btn.onclick = () => {
+                    q.selected = i;
+                    showQuestion();
+                };
+
+                options.appendChild(btn);
+            });
+
+            // 👇 YAHI PAR yeh code lagana hai
+            document.getElementById("prevBtn").style.display =
+                currentQ === 0 ? "none" : "inline-block";
+
+            document.getElementById("nextBtn").style.display =
+                currentQ === currentTest.questions.length - 1 ? "none" : "inline-block";
+
+            document.getElementById("submitBtn").style.display =
+                currentQ === currentTest.questions.length - 1 ? "inline-block" : "none";
+        }
+
+
+
+        // Navigation
+        nextBtn.onclick = () => { currentQ++; showQuestion(); }
+        prevBtn.onclick = () => { currentQ--; showQuestion(); }
+
+
+        document.getElementById("startQuizBtn").onclick = function () {
+            document.getElementById("description").style.display = "none";
+            document.getElementById("quizArea").style.display = "block";
+            document.getElementById("timer").style.display = "block";
+
+            currentQ = 0;
+            startTimer();
+            showQuestion();
+        };
+
+
+        // Submit
+        submitBtn.onclick = () => submitQuiz(false);
+
+
+
+        function submitQuiz(timeOver) {
+            clearInterval(timerInterval);
+
+            document.getElementById("quizArea").style.display = "none";
+            document.getElementById("timer").style.display = "none";
+
+            let correct = 0, wrong = 0;
+
+            currentTest.questions.forEach(q => {
+                if (q.selected === q.a) correct++;
+                else if (q.selected !== null) wrong++;
+            });
+
+            let percentage = Math.round((correct / 20) * 100);
+            let isPass = percentage >= 50;
+
+
+            // 🔥 Badge YAHAN add karein
+            let badge = "";
+
+            if (percentage >= 80) badge = "<i class=\"fa-solid fa-trophy\"></i> Top Performer";
+            else if (percentage >= 50) badge = `<span style="display:flex; align-items:center; gap:6px; font-size:20px; font-weight:600;">
+                        <i class="fa-solid fa-star" style="color: rgb(255, 212, 59); font-size:22px; "></i> Qualified
+                        </span>`;
+            // else if (percentage >= 50) badge = "<i class=\"fa-solid fa-star\" style=\"color: rgb(255, 212, 59);\"> Qualified";
+            else badge = "<i class=\"fa-solid fa-thumbs-up\"></i> Needs Improvement";
+
+
+            // 🔥 Motivational Message YAHAN add karo
+            let message = "";
+
+            if (percentage >= 80) {
+                message = "Excellent Performance! <i class=\"fa-solid fa-star\" style=\"color: rgb(255, 212, 59);\"></i> Keep it up!";
+            } else if (percentage >= 50) {
+                message = "Good Job <i class=\"fa-solid fa-thumbs-up\"></i> You can improve even more!";
+            } else {
+                message = "Don't worry, Review and try again!";
+            }
+
+
+            let result = document.getElementById("result");
+            result.style.display = "block";
+
+            result.innerHTML = `
+        <h2>${timeOver ? "⏰ Time Over!" : "🎉 Test Completed!"}</h2>
+
+
+          <!-- 🔥 YAHAN BADGE ADD KARO -->
+    <h3 style="margin-bottom:15px; color:#FF6600;">
+        ${badge}
+    </h3>
+
+        
+        <div class="score-circle ${isPass ? 'pass' : 'fail'}">
+            ${percentage}%
+        </div>
+
+        <div class="result-stats">
+            <p><strong>Correct:</strong> ${correct}</p>
+            <p><strong>Wrong:</strong> ${wrong}</p>
+            <p><strong>Marks:</strong> ${correct} / 20</p>
+            <p><strong>Status:</strong> 
+                <span style="color:${isPass ? 'green' : 'red'}">
+                    ${isPass ? 'PASS 🎉' : 'FAIL ❌'}
+                </span>
+            </p>
+        </div>
+
+        
+        <p style="margin-top:20px; font-size:18px; font-weight:500;">
+            ${message}
+        </p>
+
+
+        <div style="margin-top:20px;">
+            <div style="height:12px; background:#eee; border-radius:10px;">
+                <div style="
+                    height:12px;
+                    width:${percentage}%;
+                    background:${percentage >= 50 ? '#4CAF50' : '#e53935'};
+                    border-radius:10px;">
+                </div>
+            </div>
+        </div>
+
+        <div class="result-btn-group">
+
+            <button class="result-btn review-btn" onclick="showReview()">
+                <i class="fa fa-list"></i> View Review
+            </button>
+
+            <button class="result-btn retry-btn" onclick="location.reload()">
+                <i class="fa fa-rotate-right"></i> Restart
+            </button>
+
+            <a href="home.html" class="result-btn back-home">
+                <i class="fa fa-home"></i> Back to Home
+            </a>
+
+        </div>
+    `;
+
+
+            // 🔥 Animated Circle Code
+            let circle = document.querySelector(".score-circle");
+            let degree = (percentage / 100) * 360;
+
+            // setTimeout(() => {
+            //     circle.style.background =
+            //         `conic-gradient(#4CAF50 ${degree}deg, #eee ${degree}deg)`;
+            // }, 100);
+
+            let fillColor = percentage >= 50 ? "#4CAF50" : "#e53935";
+
+            setTimeout(() => {
+                circle.style.background =
+                    `conic-gradient(${fillColor} ${degree}deg, #eee ${degree}deg)`;
+            }, 100);
+        }
+
+
+        // Review
+        function showReview() {
+            let review = document.getElementById("review");
+            review.style.display = "block";
+            review.innerHTML = "";
+            currentTest.questions.forEach((q, i) => {
+                review.innerHTML += `
+        <p>
+        Q${i + 1}: ${q.q}<br>
+        Your Answer: <span class="${q.selected === q.a ? 'correct' : 'wrong'}">
+        ${q.o[q.selected] || "Not Attempted"}
+        </span><br>
+        Correct Answer: <span class="correct">${q.o[q.a]}</span>
+        </p><hr>`;
+            });
+        }
+
+    </script>
+
+</body>
+
+</html>

@@ -109,7 +109,7 @@ session_start();
 
         searchBtn.addEventListener('click', () => {
             searchBox.classList.toggle('active');
-            if (searchBo.classList.contains('active')) {    
+            if (searchBo.classList.contains('active')) {
                 searchBo.querySelector('input').focus(); // input pe focus
             }
         });
@@ -194,11 +194,22 @@ session_start();
         });
 
         // MOBILE DROPDOWN CLICK
-        document.querySelectorAll(".dropdown > a").forEach(drop => {
+        /*document.querySelectorAll(".dropdown > a").forEach(drop => {
             drop.addEventListener("click", (e) => {
                 if (window.innerWidth <= 850) {
                     e.preventDefault();
                     drop.parentElement.classList.toggle("open");
+                }
+            });
+        });*/
+        document.querySelectorAll(".dropdown > a").forEach(drop => {
+            drop.addEventListener("click", (e) => {
+                const parent = drop.parentElement;
+                const submenu = parent.querySelector(".dropdown-menu");
+
+                if (window.innerWidth <= 850 && submenu) {
+                    e.preventDefault(); // only prevent if dropdown exists
+                    parent.classList.toggle("open");
                 }
             });
         });
